@@ -18,17 +18,17 @@ wslists = worksheets.sheet_names
 listings = []
 
 for wslist in wslists:
-    listing = pd.read_excel(worksheets,sheetname=wslist, na_values=['N/A','n/a','na','NA',' '])
+    listing = pd.read_excel(worksheets,sheet_name=wslist, na_values=['N/A','n/a','na','NA',' '])
     listing['Wslist'] = wslist
     listings.append(listing)
-    
+
 combined_data = pd.concat(listings)
 """
 
 
 # Read Excel Sheets Separately
 def read(df, sheet):
-    df = pd.read_excel(worksheets, sheetname=sheet, na_values=['N/A', 'n/a', 'na', 'NA', ' '])
+    df = pd.read_excel(worksheets, sheet_name=sheet, na_values=['N/A', 'n/a', 'na', 'NA', ' '])
 
     # Selecting Variables of Interest
     df = pd.DataFrame(df, columns=['Organization', 'Occupational Group ', 'Occupation Title', 'Regulated in Alberta',
@@ -375,7 +375,7 @@ def func_LMR_1(sumdata, Grp):
     sumdata['Labour Mobility Rate'] = sumdata['Out-of-province Applications received '] / sumdata[
         'Total Applications received']
     sumdata.T
-    
+
     sumdata.index.name = ''
 
     return sumdata
@@ -920,5 +920,5 @@ LMR_YR_OG.to_excel(xl_writer, 'LMS', index=True, startcol=1, startrow=73)
 # Save Workbook
 xl_writer.save()
 
-# Close Workbook 
+# Close Workbook
 wb.close()
