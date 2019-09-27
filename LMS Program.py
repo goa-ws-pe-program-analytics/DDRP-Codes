@@ -4,12 +4,12 @@ Created on Mon May 27 10:55:15 2019
 
 @author: isaac.nyamekye
 """
-#******************************
+
 import pandas as pd
 import numpy as np
 
 worksheets = pd.ExcelFile(
-    r"\\GOA\MyDocs\I\isaac.nyamekye\Projects\Labour Mobility\Raw Data AB LM Surveys 2011-2017 - IN2.xlsx")
+    r"M:/WS/Program Effectiveness/Program Analytics/DDRP/Monthly_Report/2019-20/_Latest_Month/Raw_Data/Raw Data AB LM Surveys 2011-2017.xlsx")
 
 """
 # Reading all sheets in workbook into one dataframe
@@ -104,8 +104,6 @@ Excluded_Occu_2014 = list(['Fireman (FIR)'])
 df2014 = df2014.drop(df2014[(df2014['Occupation Title'].isin(Excluded_Occu_2014))].index)
 
 # Dropping Excluded Occupations - 2013
-
-'Asbestos Worker', 'Bridge Inspector and Maintenance System Inspector', 'Building Operator A&B', 'Chiropractors', 'Composting Facility Operator', 'Driver Examiner', 'Fireman (FIR)', 'Home Inspector', 'Hunting & Fishing Guides', 'Land Surveyors', 'Local Government Manager', 'Locksmiths', 'Occupational Therapists', 'Optometrists', 'Podiatrists', 'Private Investigators', 'Security Workers'
 
 Excluded_Occu_2013 = list(
     ['Chartered Accountants', 'Chiropractors', 'Driver Examiner', 'Home Economists', 'Home Inspectors',
@@ -222,7 +220,6 @@ Applications_OG_AB = pd.DataFrame(
                                                                                                            fill_value=0)
 
 Applications_OG_AB.index.name = ''
-
 
 Applications_OG_OP = pd.DataFrame(
     df_all.groupby(['Year', 'Occupational Group '])['Out-of-province Applications received '].sum()).unstack('Year',
@@ -389,9 +386,6 @@ LMR_YR = func_LMR_1(LMR_YR, 'Year')
 LMR_YR_OG = func_LMR_1(LMR_YR_OG, ['Year', 'Occupational Group '])
 LMR_YR_OG = pd.pivot_table(LMR_YR_OG, values='Labour Mobility Rate', index=['Occupational Group '], columns=['Year'],
                            aggfunc=np.sum)
-
-LMR_YR_OG
-LMR_YR
 
 
 # Regulated Occupations Reporting Highest Number of Out-of-Province Applicants
@@ -569,7 +563,7 @@ df2012 = func_Outliers(df2012)
 
 All_PT = pd.concat([df2017, df2016, df2015, df2014, df2013, df2012])
 
-All_PT.to_excel("//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/LMS_All_Year.xlsx", index=False)
+#All_PT.to_excel("//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/LMS_All_Year.xlsx", index=False)
 
 # Comparison of Processing Time 2012-2017
 Processing_T = pd.DataFrame(All_PT.groupby('Year')[
@@ -590,24 +584,23 @@ Processing_T_OG_OP = pd.DataFrame(
 Processing_T_OG_OP.index.name = ' '
 
 # Processing Time by Occupational Group and Title
-
+# Pivot table for Processing time by year, occupation group and title
 Processing_T_OT_AB = pd.pivot_table(All_PT, values=['Processing Time for Alberta Applications'],
                                     index=['Occupational Group ', 'Occupation Title'], columns=['Year'],
-                                    aggfunc=np.mean)  # Pivot table for Processinh time by year, occupation group and title
-
+                                    aggfunc=np.mean)
 Processing_T_OT_AB = Processing_T_OT_AB.reindex(
     Processing_T_OT_AB['Processing Time for Alberta Applications'].sort_values(
         by=['Occupational Group ', 2017]).index)  # Sorting by 2017 values
 
+# Pivot table for Processing time by year, occupation group and title
 Processing_T_OT_OP = pd.pivot_table(All_PT, values=['Processing Time for out-of-province Applications'],
                                     index=['Occupational Group ', 'Occupation Title'], columns=['Year'],
-                                    aggfunc=np.mean)  # Pivot table for Processinh time by year, occupation group and title
-
+                                    aggfunc=np.mean)
 Processing_T_OT_OP = Processing_T_OT_OP.reindex(
     Processing_T_OT_OP['Processing Time for out-of-province Applications'].sort_values(
         by=['Occupational Group ', 2017]).index)  # Sorting by 2017 values
 
-
+"""
 def output(out, df1, df2, df3, df4, df5, df6, df7):
     # Creating Excel Workbook for tables and charts
     writer = pd.ExcelWriter(r"//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/" + out + ".xlsx",
@@ -886,14 +879,17 @@ LMS_2013 = output('LMS_2013', Occu_grp_smry_2013, Top_Occu_2013, B_Occupational_
 LMS_2012 = output('LMS_2012', Occu_grp_smry_2012, Top_Occu_2012, B_Occupational_summary_2012,
                   E_Occupational_summary_2012, H_Occupational_summary_2012, L_Occupational_summary_2012,
                   All_Occu_smry_2012)
+"""
 
 from openpyxl import load_workbook
-#from openpyxl.utils.dataframe import dataframe_to_rows
+
+# from openpyxl.utils.dataframe import dataframe_to_rows
 
 # Load Workbook
-wb = load_workbook("//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/DDRP - Monthly_Report.xlsx")
+wb = load_workbook("M:/WS/Program Effectiveness/Program Analytics/DDRP/Monthly_Report/2019-20/_Latest_Month/DDRP - Monthly_Report.xlsx")
 
-xl_writer = pd.ExcelWriter("//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/DDRP - Monthly_Report.xlsx", engine='openpyxl')
+xl_writer = pd.ExcelWriter("M:/WS/Program Effectiveness/Program Analytics/DDRP/Monthly_Report/2019-20/_Latest_Month/DDRP - Monthly_Report.xlsx",
+                           engine='openpyxl')
 
 xl_writer.book = wb
 # Read all sheets in workbook
