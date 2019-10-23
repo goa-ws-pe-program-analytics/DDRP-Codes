@@ -32,15 +32,13 @@ def read(df, sheet):
 
     # Selecting Variables of Interest
     df = pd.DataFrame(df, columns=['Organization', 'Occupational Group ', 'Occupation Title', 'Regulated in Alberta',
-                                   'Applications received from Albertans', 'Out-of-province Applications received ',
-                                   'Total Applications received', 'Processing Time for Alberta Applications',
-                                   'Processing Time for out-of-province Applications', 'Year'])
+                                   'Applications received from Albertans', 'Out-of-province Applications received ', 'Total Applications received',
+                                   'Processing Time for Alberta Applications', 'Processing Time for out-of-province Applications', 'Year'])
 
     # Renaming Occupational Group
     df['Occupational Group '] = df['Occupational Group '].replace(
-        {'B': 'Business, Finance and Real Estate', 'E': 'Engineering, Architecture, Science and Technology',
-         'H': 'Health and Social Services', 'L': 'Legal, Education and Government', 'O': 'Other', 'T': 'Other'})
-
+        {'B': 'Business, Finance and Real Estate', 'E': 'Engineering, Architecture, Science and Technology', 'H': 'Health and Social Services',
+         'L': 'Legal, Education and Government', 'O': 'Other', 'T': 'Other'})
     return df
 
 
@@ -70,30 +68,27 @@ df2012 = read(df2012, '2012 Data')
 
 # Dropping Excluded Occupations - 2017
 
-Excluded_Occu_2017 = list(['Automotive Salesperson', 'Building Operator A&B', 'Chiropractors', 'Fireman (FIR)',
-                           'Forest Technologists (Registered)', 'Forester (Registered Professional)',
-                           'Horse Racing occupations', 'Hunting & Fishing Guides', 'Land Surveyors', 'Locksmiths',
-                           'Occupational Therapists', 'Private Investigators', 'Security Workers',
-                           'Shorthand Reporters', 'Speech Language Pathologist'])
+Excluded_Occu_2017 = list(['Automotive Salesperson', 'Building Operator A&B', 'Chiropractors', 'Fireman (FIR)', 'Forest Technologists (Registered)',
+                           'Forester (Registered Professional)', 'Horse Racing occupations', 'Hunting & Fishing Guides', 'Land Surveyors',
+                           'Locksmiths', 'Occupational Therapists', 'Private Investigators', 'Security Workers', 'Shorthand Reporters',
+                           'Speech Language Pathologist'])
 
 df2017 = df2017.drop(df2017[(df2017['Occupation Title'].isin(Excluded_Occu_2017))].index)
 
 # Dropping Excluded Occupations - 2016
 
 Excluded_Occu_2016 = list(
-    ['Asbestos Worker', 'Bridge Inspector and Maintenance System Inspector', 'Building Operator A&B', 'Chiropractors',
-     'Composting Facility Operator', 'Driver Examiner', 'Fireman (FIR)', 'Home Inspector', 'Hunting & Fishing Guides',
-     'Land Surveyors', 'Local Government Manager', 'Locksmiths', 'Occupational Therapists', 'Optometrists',
-     'Podiatrists', 'Private Investigators', 'Security Workers'])
+    ['Asbestos Worker', 'Bridge Inspector and Maintenance System Inspector', 'Building Operator A&B', 'Chiropractors', 'Composting Facility Operator',
+     'Driver Examiner', 'Fireman (FIR)', 'Home Inspector', 'Hunting & Fishing Guides', 'Land Surveyors', 'Local Government Manager', 'Locksmiths',
+     'Occupational Therapists', 'Optometrists', 'Podiatrists', 'Private Investigators', 'Security Workers'])
 
 df2016 = df2016.drop(df2016[(df2016['Occupation Title'].isin(Excluded_Occu_2016))].index)
 
 # Dropping Excluded Occupations - 2015
 
 Excluded_Occu_2015 = list(
-    ['Asbestos Worker', 'Automotive Salesperson', 'Biologist', 'Groom', 'Horse Racing occupations',
-     'Private Investigators', 'Security Guard', 'Locksmiths', 'Occupational Therapists',
-     'Information Systems Professional', 'Shorthand Reporter', 'Water and/or Wastewater Operator'])
+    ['Asbestos Worker', 'Automotive Salesperson', 'Biologist', 'Groom', 'Horse Racing occupations', 'Private Investigators', 'Security Guard',
+     'Locksmiths', 'Occupational Therapists', 'Information Systems Professional', 'Shorthand Reporter', 'Water and/or Wastewater Operator'])
 
 df2015 = df2015.drop(df2015[(df2015['Occupation Title'].isin(Excluded_Occu_2015))].index)
 
@@ -105,10 +100,9 @@ df2014 = df2014.drop(df2014[(df2014['Occupation Title'].isin(Excluded_Occu_2014)
 
 # Dropping Excluded Occupations - 2013
 
-Excluded_Occu_2013 = list(
-    ['Chartered Accountants', 'Chiropractors', 'Driver Examiner', 'Home Economists', 'Home Inspectors',
-     'Horse Jockeys/ Horse Racing Standard bred Drivers', 'Hunting & Fishing Guides', 'Landscape Architect',
-     'Occupational Therapists', 'Podiatrists', 'Physicians and Surgeons', 'Respiratory Therapists'])
+Excluded_Occu_2013 = list(['Chartered Accountants', 'Chiropractors', 'Driver Examiner', 'Home Economists', 'Home Inspectors',
+                           'Horse Jockeys/ Horse Racing Standard bred Drivers', 'Hunting & Fishing Guides', 'Landscape Architect',
+                           'Occupational Therapists', 'Podiatrists', 'Physicians and Surgeons', 'Respiratory Therapists'])
 
 df2013 = df2013.drop(df2013[(df2013['Occupation Title'].isin(Excluded_Occu_2013))].index)
 
@@ -122,8 +116,7 @@ def change_occu(df, ot, og):
 
 
 # Changing Occupational Group for some Occupations - 2017
-df2017 = change_occu(df2017, ['Asbestos Worker', 'Home Economist/ Human Ecologist'],
-                     "Engineering, Architecture, Science and Technology")
+df2017 = change_occu(df2017, ['Asbestos Worker', 'Home Economist/ Human Ecologist'], "Engineering, Architecture, Science and Technology")
 
 df2017 = change_occu(df2017, ['Vehicle Inspection Technician'], "Legal, Education and Government")
 
@@ -140,27 +133,26 @@ df2013 = df2013.drop(df2013[df2013['Occupational Group '] == 'Other'].index)
 # Occupational Groups Summary
 
 def func_OG(odf, sumdata):
-    sumdata = odf.groupby('Occupational Group ')[
-        'Applications received from Albertans', 'Out-of-province Applications received '].sum()
+    sumdata = odf.groupby('Occupational Group ')['Applications received from Albertans', 'Out-of-province Applications received '].sum()
 
-    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata[
-        'Out-of-province Applications received ']
+    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata['Out-of-province Applications received ']
 
     sumdata.loc['Total'] = sumdata.sum()
 
     sumdata['% Alberta'] = sumdata['Applications received from Albertans'] / sumdata['Total Applications received']
 
-    sumdata['% Out-of-province'] = sumdata['Out-of-province Applications received '] / sumdata[
-        'Total Applications received']
+    sumdata['% Out-of-province'] = sumdata['Out-of-province Applications received '] / sumdata['Total Applications received']
 
     # Rearrange columns
-    sumdata = sumdata[['Applications received from Albertans', '% Alberta', 'Out-of-province Applications received ',
-                       '% Out-of-province', 'Total Applications received']]
+    sumdata = sumdata[['Applications received from Albertans', '% Alberta', 'Out-of-province Applications received ', '% Out-of-province',
+                       'Total Applications received']]
 
     # Format columns
     #    sumdata[['% Alberta','% Out-of-province']] = sumdata[['% Alberta','% Out-of-province']].applymap(lambda x: "{0:.0f}%".format(x*100))
 
-    #    sumdata[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']] = sumdata[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']].applymap(lambda x: "{:,.0f}".format(x))
+    #    sumdata[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']] = sumdata[[
+    #    'Applications received from Albertans','Out-of-province Applications received ','Total Applications received']].applymap(lambda x: "{:,
+    #    .0f}".format(x))
 
     return sumdata
 
@@ -198,32 +190,31 @@ Applications = pd.DataFrame(
 Applications.index.name = ''
 Applications.loc['Total Applications received'] = Applications.sum()
 
-Applications.loc['% Alberta'] = Applications.loc['Applications received from Albertans'] / Applications.loc[
-    'Total Applications received']
+Applications.loc['% Alberta'] = Applications.loc['Applications received from Albertans'] / Applications.loc['Total Applications received']
 
-Applications.loc['% Out-of-province'] = Applications.loc['Out-of-province Applications received '] / Applications.loc[
-    'Total Applications received']
+Applications.loc['% Out-of-province'] = Applications.loc['Out-of-province Applications received '] / Applications.loc['Total Applications received']
 
 # Rearrange rows
-Applications = Applications.reindex(index=(
-    'Applications received from Albertans', '% Alberta', 'Out-of-province Applications received ', '% Out-of-province',
-    'Total Applications received'))
+Applications = Applications.reindex(
+    index=('Applications received from Albertans', '% Alberta', 'Out-of-province Applications received ', '% Out-of-province',
+           'Total Applications received'))
 
 # Format rows
-# Applications.loc[['% Alberta','% Out-of-province']] = Applications.loc[['% Alberta','% Out-of-province']].applymap(lambda x: "{0:.0f}%".format(x*100))
+# Applications.loc[['% Alberta','% Out-of-province']] = Applications.loc[['% Alberta','% Out-of-province']].applymap(lambda x: "{0:.0f}%".format(
+# x*100))
 
-# Applications.loc[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']] = Applications.loc[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']].applymap(lambda x: "{:,.0f}".format(x))
+# Applications.loc[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']] =
+# Applications.loc[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']].applymap(lambda
+# x: "{:,.0f}".format(x))
 
 # Application by Occupational Group and Year
-Applications_OG_AB = pd.DataFrame(
-    df_all.groupby(['Year', 'Occupational Group '])['Applications received from Albertans'].sum()).unstack('Year',
-                                                                                                           fill_value=0)
+Applications_OG_AB = pd.DataFrame(df_all.groupby(['Year', 'Occupational Group '])['Applications received from Albertans'].sum()).unstack('Year',
+                                                                                                                                         fill_value=0)
 
 Applications_OG_AB.index.name = ''
 
-Applications_OG_OP = pd.DataFrame(
-    df_all.groupby(['Year', 'Occupational Group '])['Out-of-province Applications received '].sum()).unstack('Year',
-                                                                                                             fill_value=0)
+Applications_OG_OP = pd.DataFrame(df_all.groupby(['Year', 'Occupational Group '])['Out-of-province Applications received '].sum()).unstack('Year',
+                                                                                                                                           fill_value=0)
 
 Applications_OG_OP.index.name = ' '
 
@@ -232,14 +223,11 @@ Applications_OG_OP.index.name = ' '
 def func_LMR(odf, sumdata, OG):
     odf = odf[odf['Occupational Group '] == OG]
 
-    sumdata = odf.groupby('Occupation Title')[
-        'Applications received from Albertans', 'Out-of-province Applications received '].sum()
+    sumdata = odf.groupby('Occupation Title')['Applications received from Albertans', 'Out-of-province Applications received '].sum()
 
-    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata[
-        'Out-of-province Applications received ']
+    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata['Out-of-province Applications received ']
 
-    sumdata['Labour Mobility Rate'] = sumdata['Out-of-province Applications received '] / sumdata[
-        'Total Applications received']
+    sumdata['Labour Mobility Rate'] = sumdata['Out-of-province Applications received '] / sumdata['Total Applications received']
 
     # Drop NAN values
     sumdata = sumdata.dropna()
@@ -263,8 +251,7 @@ B_Occupational_summary_2017 = func_LMR(df2017, B_Occupational_summary_2017, 'Bus
 
 # 2017 Labour Mobility Rate - Engineering, Architecture, Science and Technology
 E_Occupational_summary_2017 = []
-E_Occupational_summary_2017 = func_LMR(df2017, E_Occupational_summary_2017,
-                                       'Engineering, Architecture, Science and Technology')
+E_Occupational_summary_2017 = func_LMR(df2017, E_Occupational_summary_2017, 'Engineering, Architecture, Science and Technology')
 
 # 2017 Labour Mobility Rate - Health and Social Services
 H_Occupational_summary_2017 = []
@@ -280,8 +267,7 @@ B_Occupational_summary_2016 = func_LMR(df2016, B_Occupational_summary_2016, 'Bus
 
 # 2016 Labour Mobility Rate - Engineering, Architecture, Science and Technology
 E_Occupational_summary_2016 = []
-E_Occupational_summary_2016 = func_LMR(df2016, E_Occupational_summary_2016,
-                                       'Engineering, Architecture, Science and Technology')
+E_Occupational_summary_2016 = func_LMR(df2016, E_Occupational_summary_2016, 'Engineering, Architecture, Science and Technology')
 
 # 2016 Labour Mobility Rate - Health and Social Services
 H_Occupational_summary_2016 = []
@@ -297,8 +283,7 @@ B_Occupational_summary_2015 = func_LMR(df2015, B_Occupational_summary_2015, 'Bus
 
 # 2015 Labour Mobility Rate - Engineering, Architecture, Science and Technology
 E_Occupational_summary_2015 = []
-E_Occupational_summary_2015 = func_LMR(df2015, E_Occupational_summary_2015,
-                                       'Engineering, Architecture, Science and Technology')
+E_Occupational_summary_2015 = func_LMR(df2015, E_Occupational_summary_2015, 'Engineering, Architecture, Science and Technology')
 
 # 2015 Labour Mobility Rate - Health and Social Services
 H_Occupational_summary_2015 = []
@@ -314,8 +299,7 @@ B_Occupational_summary_2014 = func_LMR(df2014, B_Occupational_summary_2014, 'Bus
 
 # 2014 Labour Mobility Rate - Engineering, Architecture, Science and Technology
 E_Occupational_summary_2014 = []
-E_Occupational_summary_2014 = func_LMR(df2014, E_Occupational_summary_2014,
-                                       'Engineering, Architecture, Science and Technology')
+E_Occupational_summary_2014 = func_LMR(df2014, E_Occupational_summary_2014, 'Engineering, Architecture, Science and Technology')
 
 # 2014 Labour Mobility Rate - Health and Social Services
 H_Occupational_summary_2014 = []
@@ -331,8 +315,7 @@ B_Occupational_summary_2013 = func_LMR(df2013, B_Occupational_summary_2013, 'Bus
 
 # 2013 Labour Mobility Rate - Engineering, Architecture, Science and Technology
 E_Occupational_summary_2013 = []
-E_Occupational_summary_2013 = func_LMR(df2013, E_Occupational_summary_2013,
-                                       'Engineering, Architecture, Science and Technology')
+E_Occupational_summary_2013 = func_LMR(df2013, E_Occupational_summary_2013, 'Engineering, Architecture, Science and Technology')
 
 # 2013 Labour Mobility Rate - Health and Social Services
 H_Occupational_summary_2013 = []
@@ -348,8 +331,7 @@ B_Occupational_summary_2012 = func_LMR(df2012, B_Occupational_summary_2012, 'Bus
 
 # 2012 Labour Mobility Rate - Engineering, Architecture, Science and Technology
 E_Occupational_summary_2012 = []
-E_Occupational_summary_2012 = func_LMR(df2012, E_Occupational_summary_2012,
-                                       'Engineering, Architecture, Science and Technology')
+E_Occupational_summary_2012 = func_LMR(df2012, E_Occupational_summary_2012, 'Engineering, Architecture, Science and Technology')
 
 # 2012 Labour Mobility Rate - Health and Social Services
 H_Occupational_summary_2012 = []
@@ -363,14 +345,11 @@ L_Occupational_summary_2012 = func_LMR(df2012, L_Occupational_summary_2012, 'Leg
 # Labour Mobility Rate
 
 def func_LMR_1(sumdata, Grp):
-    sumdata = pd.DataFrame(
-        df_all.groupby(Grp)['Applications received from Albertans', 'Out-of-province Applications received '].sum())
+    sumdata = pd.DataFrame(df_all.groupby(Grp)['Applications received from Albertans', 'Out-of-province Applications received '].sum())
 
-    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata[
-        'Out-of-province Applications received ']
+    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata['Out-of-province Applications received ']
 
-    sumdata['Labour Mobility Rate'] = sumdata['Out-of-province Applications received '] / sumdata[
-        'Total Applications received']
+    sumdata['Labour Mobility Rate'] = sumdata['Out-of-province Applications received '] / sumdata['Total Applications received']
     sumdata.T
 
     sumdata.index.name = ''
@@ -384,22 +363,22 @@ LMR_YR = func_LMR_1(LMR_YR, 'Year')
 
 # Labour Mobility Rate by Year and Occupational Group
 LMR_YR_OG = func_LMR_1(LMR_YR_OG, ['Year', 'Occupational Group '])
-LMR_YR_OG = pd.pivot_table(LMR_YR_OG, values='Labour Mobility Rate', index=['Occupational Group '], columns=['Year'],
-                           aggfunc=np.sum)
+LMR_YR_OG = pd.pivot_table(LMR_YR_OG, values='Labour Mobility Rate', index=['Occupational Group '], columns=['Year'], aggfunc=np.sum)
 
 
 # Regulated Occupations Reporting Highest Number of Out-of-Province Applicants
 
 def func_OG_T(odf, sumdata):
     # Selecting Top 10 Out-of-province Occupations
-    sumdata = odf.groupby('Occupation Title')[
-        'Occupation Title', 'Out-of-province Applications received '].sum().nlargest(10,
-                                                                                     'Out-of-province Applications received ')
+    sumdata = odf.groupby('Occupation Title')['Occupation Title', 'Out-of-province Applications received '].sum().nlargest(10,
+                                                                                                                           'Out-of-province '
+                                                                                                                           'Applications received ')
 
     sumdata.loc['Total'] = sumdata.sum()
 
     # Format Out-of-province Applications received columns
-    #    sumdata[['Out-of-province Applications received ']] = sumdata[['Out-of-province Applications received ']].applymap(lambda x: "{:,.0f}".format(x))
+    #    sumdata[['Out-of-province Applications received ']] = sumdata[['Out-of-province Applications received ']].applymap(lambda x: "{:,
+    #    .0f}".format(x))
 
     return sumdata
 
@@ -441,16 +420,13 @@ def func_OG_All(odf, sumdata, sumdata1):
     sumdata = odf.groupby(['Occupational Group ', 'Occupation Title'])[
         'Applications received from Albertans', 'Out-of-province Applications received '].sum()
 
-    sumdata1 = odf.groupby(['Occupational Group '])[
-        'Applications received from Albertans', 'Out-of-province Applications received '].sum()
+    sumdata1 = odf.groupby(['Occupational Group '])['Applications received from Albertans', 'Out-of-province Applications received '].sum()
 
-    sumdata1.index = [sumdata1.index.get_level_values(0),
-                      ['Total'] * len(sumdata1)]
+    sumdata1.index = [sumdata1.index.get_level_values(0), ['Total'] * len(sumdata1)]
 
     sumdata = pd.concat([sumdata, sumdata1]).sort_index(level=[0])
 
-    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata[
-        'Out-of-province Applications received ']
+    sumdata['Total Applications received'] = sumdata['Applications received from Albertans'] + sumdata['Out-of-province Applications received ']
 
     sumdata = sumdata.loc[(sumdata['Total Applications received'] != 0)]
 
@@ -458,17 +434,18 @@ def func_OG_All(odf, sumdata, sumdata1):
 
     sumdata['% Alberta'] = sumdata['Applications received from Albertans'] / sumdata['Total Applications received']
 
-    sumdata['% Out-of-province'] = sumdata['Out-of-province Applications received '] / sumdata[
-        'Total Applications received']
+    sumdata['% Out-of-province'] = sumdata['Out-of-province Applications received '] / sumdata['Total Applications received']
 
     # Rearrange columns
-    sumdata = sumdata[['Applications received from Albertans', '% Alberta', 'Out-of-province Applications received ',
-                       '% Out-of-province', 'Total Applications received']]
+    sumdata = sumdata[['Applications received from Albertans', '% Alberta', 'Out-of-province Applications received ', '% Out-of-province',
+                       'Total Applications received']]
 
     # Format columns
     #    sumdata[['% Alberta','% Out-of-province']] = sumdata[['% Alberta','% Out-of-province']].applymap(lambda x: "{0:.0f}%".format(x*100))
 
-    #    sumdata[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']] = sumdata[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']].applymap(lambda x: "{:,.0f}".format(x))
+    #    sumdata[['Applications received from Albertans','Out-of-province Applications received ','Total Applications received']] = sumdata[[
+    #    'Applications received from Albertans','Out-of-province Applications received ','Total Applications received']].applymap(lambda x: "{:,
+    #    .0f}".format(x))
 
     return sumdata
 
@@ -512,8 +489,7 @@ from numpy import std
 def func_Outliers(odf):
     # Calculating Mean and STD for Processing Time
 
-    ABmean_var, ABstd_var = mean(odf['Processing Time for Alberta Applications']), std(
-        odf['Processing Time for Alberta Applications'])
+    ABmean_var, ABstd_var = mean(odf['Processing Time for Alberta Applications']), std(odf['Processing Time for Alberta Applications'])
 
     OPmean_var, OPstd_var = mean(odf['Processing Time for out-of-province Applications']), std(
         odf['Processing Time for out-of-province Applications'])
@@ -534,11 +510,9 @@ def func_Outliers(odf):
     print('OP Identified outliers: %d' % len(OPoutliers))
 
     # Replaceing outliers with NAN (missing values)
-    odf.loc[odf['Processing Time for Alberta Applications'].isin(
-        ABoutliers), 'Processing Time for Alberta Applications'] = np.nan
+    odf.loc[odf['Processing Time for Alberta Applications'].isin(ABoutliers), 'Processing Time for Alberta Applications'] = np.nan
 
-    odf.loc[odf['Processing Time for out-of-province Applications'].isin(
-        OPoutliers), 'Processing Time for out-of-province Applications'] = np.nan
+    odf.loc[odf['Processing Time for out-of-province Applications'].isin(OPoutliers), 'Processing Time for out-of-province Applications'] = np.nan
 
     return odf
 
@@ -563,42 +537,36 @@ df2012 = func_Outliers(df2012)
 
 All_PT = pd.concat([df2017, df2016, df2015, df2014, df2013, df2012])
 
-#All_PT.to_excel("//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/LMS_All_Year.xlsx", index=False)
+# All_PT.to_excel("//GOA/MyDocs/I/isaac.nyamekye/Projects/Labour Mobility/LMS_All_Year.xlsx", index=False)
 
 # Comparison of Processing Time 2012-2017
-Processing_T = pd.DataFrame(All_PT.groupby('Year')[
-                                'Processing Time for Alberta Applications', 'Processing Time for out-of-province Applications'].mean()).T
+Processing_T = pd.DataFrame(
+    All_PT.groupby('Year')['Processing Time for Alberta Applications', 'Processing Time for out-of-province Applications'].mean()).T
 Processing_T.index.name = ' '
 
 # Processing Time by Occupational Group
-Processing_T_OG_AB = pd.DataFrame(
-    All_PT.groupby(['Year', 'Occupational Group '])['Processing Time for Alberta Applications'].mean()).unstack('Year',
-                                                                                                                fill_value=0)
+Processing_T_OG_AB = pd.DataFrame(All_PT.groupby(['Year', 'Occupational Group '])['Processing Time for Alberta Applications'].mean()).unstack('Year',
+                                                                                                                                              fill_value=0)
 
 Processing_T_OG_AB.index.name = ' '
 
-Processing_T_OG_OP = pd.DataFrame(
-    All_PT.groupby(['Year', 'Occupational Group '])['Processing Time for out-of-province Applications'].mean()).unstack(
+Processing_T_OG_OP = pd.DataFrame(All_PT.groupby(['Year', 'Occupational Group '])['Processing Time for out-of-province Applications'].mean()).unstack(
     'Year', fill_value=0)
 
 Processing_T_OG_OP.index.name = ' '
 
 # Processing Time by Occupational Group and Title
 # Pivot table for Processing time by year, occupation group and title
-Processing_T_OT_AB = pd.pivot_table(All_PT, values=['Processing Time for Alberta Applications'],
-                                    index=['Occupational Group ', 'Occupation Title'], columns=['Year'],
-                                    aggfunc=np.mean)
+Processing_T_OT_AB = pd.pivot_table(All_PT, values=['Processing Time for Alberta Applications'], index=['Occupational Group ', 'Occupation Title'],
+                                    columns=['Year'], aggfunc=np.mean)
 Processing_T_OT_AB = Processing_T_OT_AB.reindex(
-    Processing_T_OT_AB['Processing Time for Alberta Applications'].sort_values(
-        by=['Occupational Group ', 2017]).index)  # Sorting by 2017 values
+    Processing_T_OT_AB['Processing Time for Alberta Applications'].sort_values(by=['Occupational Group ', 2017]).index)  # Sorting by 2017 values
 
 # Pivot table for Processing time by year, occupation group and title
 Processing_T_OT_OP = pd.pivot_table(All_PT, values=['Processing Time for out-of-province Applications'],
-                                    index=['Occupational Group ', 'Occupation Title'], columns=['Year'],
-                                    aggfunc=np.mean)
-Processing_T_OT_OP = Processing_T_OT_OP.reindex(
-    Processing_T_OT_OP['Processing Time for out-of-province Applications'].sort_values(
-        by=['Occupational Group ', 2017]).index)  # Sorting by 2017 values
+                                    index=['Occupational Group ', 'Occupation Title'], columns=['Year'], aggfunc=np.mean)
+Processing_T_OT_OP = Processing_T_OT_OP.reindex(Processing_T_OT_OP['Processing Time for out-of-province Applications'].sort_values(
+    by=['Occupational Group ', 2017]).index)  # Sorting by 2017 values
 
 """
 def output(out, df1, df2, df3, df4, df5, df6, df7):
@@ -633,9 +601,7 @@ def output(out, df1, df2, df3, df4, df5, df6, df7):
 
     format2 = workbook.add_format({'num_format': '#,##0'})
 
-    worksheet.merge_range('B2:G3',
-                          'Alberta and Out-of-Province Applicants Entering a Regulated Occupation by Occupational Groups',
-                          merge_format)
+    worksheet.merge_range('B2:G3','Alberta and Out-of-Province Applicants Entering a Regulated Occupation by Occupational Groups',merge_format)
 
     worksheet.add_table('B5:G9')
 
@@ -644,16 +610,14 @@ def output(out, df1, df2, df3, df4, df5, df6, df7):
 
     df1.to_excel(writer, sheet_name='Occupational Groups Summary', startrow=4, startcol=1)
 
-    worksheet.merge_range('B13:H14',
-                          'Comparison of Number of Alberta and Out-of-Province Certification/Licensure Applications Between 2012-2017',
-                          merge_format)
+    worksheet.merge_range('B13:H14','Comparison of Number of Alberta and Out-of-Province Certification/Licensure Applications Between 2012-2017',
+    merge_format)
 
     worksheet.add_table('B16:H21')
 
     Applications.to_excel(writer, sheet_name='Occupational Groups Summary', startrow=15, startcol=1)
 
-    worksheet.merge_range('B24:C25', 'Regulated Occupations with Highest Number of Out-of-Province Applicants',
-                          merge_format)
+    worksheet.merge_range('B24:C25', 'Regulated Occupations with Highest Number of Out-of-Province Applicants',merge_format)
 
     worksheet.add_table('B27:C38')
 
@@ -798,20 +762,15 @@ def output(out, df1, df2, df3, df4, df5, df6, df7):
 
     Processing_T.to_excel(writer, sheet_name='Processing Time Summary', startrow=4, startcol=1)
 
-    worksheet2.merge_range('B10:H11', 'Average Processing Time for Alberta Applicants by Occupation Group (2012-2017)',
-                           merge_format)
+    worksheet2.merge_range('B10:H11', 'Average Processing Time for Alberta Applicants by Occupation Group (2012-2017)', merge_format)
 
     Processing_T_OG_AB.to_excel(writer, sheet_name='Processing Time Summary', startrow=12, startcol=1)
 
-    worksheet2.merge_range('B22:H23',
-                           'Average Processing Time for Out-of-Province Applicants by Occupation Group (2012-2017)',
-                           merge_format)
+    worksheet2.merge_range('B22:H23','Average Processing Time for Out-of-Province Applicants by Occupation Group (2012-2017)',merge_format)
 
     Processing_T_OG_OP.to_excel(writer, sheet_name='Processing Time Summary', startrow=24, startcol=1)
 
-    worksheet3.merge_range('B2:H3',
-                           'Alberta and Out-of-Province Applicants Entering a Regulated Occupation by Occupational Groups',
-                           merge_format)
+    worksheet3.merge_range('B2:H3','Alberta and Out-of-Province Applicants Entering a Regulated Occupation by Occupational Groups',merge_format)
 
     worksheet3.add_table('B5:H112')
 
@@ -826,8 +785,7 @@ def output(out, df1, df2, df3, df4, df5, df6, df7):
 
     df7.to_excel(writer, sheet_name='All Occupations', startrow=4, startcol=1)
 
-    worksheet4.merge_range('B2:H3', 'Average Processing Time for Alberta Applicants by Occupation Group (2012-2017)',
-                           merge_format)
+    worksheet4.merge_range('B2:H3', 'Average Processing Time for Alberta Applicants by Occupation Group (2012-2017)',merge_format)
 
     worksheet4.set_column('D:H', 8, format2)
 
@@ -835,9 +793,7 @@ def output(out, df1, df2, df3, df4, df5, df6, df7):
 
     Processing_T_OT_AB.to_excel(writer, sheet_name='Processing - All Occupations', startrow=4, startcol=1)
 
-    worksheet4.merge_range('J2:P3',
-                           'Average Processing Time for Out-of-Province Applicants by Occupation Group (2012-2017)',
-                           merge_format)
+    worksheet4.merge_range('J2:P3','Average Processing Time for Out-of-Province Applicants by Occupation Group (2012-2017)',merge_format)
 
     worksheet4.set_column('M:P', 8, format2)
 
@@ -851,34 +807,28 @@ def output(out, df1, df2, df3, df4, df5, df6, df7):
 
 
 # Creating Excel Workbook for tables and charts -2017
-LMS_2017 = output('LMS_2017', Occu_grp_smry_2017, Top_Occu_2017, B_Occupational_summary_2017,
-                  E_Occupational_summary_2017, H_Occupational_summary_2017, L_Occupational_summary_2017,
-                  All_Occu_smry_2017)
+LMS_2017 = output('LMS_2017', Occu_grp_smry_2017, Top_Occu_2017, B_Occupational_summary_2017,E_Occupational_summary_2017, 
+H_Occupational_summary_2017, L_Occupational_summary_2017,All_Occu_smry_2017)
 
 # Creating Excel Workbook for tables and charts -2016
-LMS_2016 = output('LMS_2016', Occu_grp_smry_2016, Top_Occu_2016, B_Occupational_summary_2016,
-                  E_Occupational_summary_2016, H_Occupational_summary_2016, L_Occupational_summary_2016,
-                  All_Occu_smry_2016)
+LMS_2016 = output('LMS_2016', Occu_grp_smry_2016, Top_Occu_2016, B_Occupational_summary_2016,E_Occupational_summary_2016, 
+H_Occupational_summary_2016, L_Occupational_summary_2016, All_Occu_smry_2016)
 
 # Creating Excel Workbook for tables and charts -2015
-LMS_2015 = output('LMS_2015', Occu_grp_smry_2015, Top_Occu_2015, B_Occupational_summary_2015,
-                  E_Occupational_summary_2015, H_Occupational_summary_2015, L_Occupational_summary_2015,
-                  All_Occu_smry_2015)
+LMS_2015 = output('LMS_2015', Occu_grp_smry_2015, Top_Occu_2015, B_Occupational_summary_2015,E_Occupational_summary_2015, 
+H_Occupational_summary_2015, L_Occupational_summary_2015,All_Occu_smry_2015)
 
 # Creating Excel Workbook for tables and charts -2014
-LMS_2014 = output('LMS_2014', Occu_grp_smry_2014, Top_Occu_2014, B_Occupational_summary_2014,
-                  E_Occupational_summary_2014, H_Occupational_summary_2014, L_Occupational_summary_2014,
-                  All_Occu_smry_2014)
+LMS_2014 = output('LMS_2014', Occu_grp_smry_2014, Top_Occu_2014, B_Occupational_summary_2014,E_Occupational_summary_2014, 
+H_Occupational_summary_2014, L_Occupational_summary_2014,All_Occu_smry_2014)
 
 # Creating Excel Workbook for tables and charts -2013
-LMS_2013 = output('LMS_2013', Occu_grp_smry_2013, Top_Occu_2013, B_Occupational_summary_2013,
-                  E_Occupational_summary_2013, H_Occupational_summary_2013, L_Occupational_summary_2013,
-                  All_Occu_smry_2013)
+LMS_2013 = output('LMS_2013', Occu_grp_smry_2013, Top_Occu_2013, B_Occupational_summary_2013,E_Occupational_summary_2013, 
+H_Occupational_summary_2013, L_Occupational_summary_2013,All_Occu_smry_2013)
 
 # Creating Excel Workbook for tables and charts -2012
-LMS_2012 = output('LMS_2012', Occu_grp_smry_2012, Top_Occu_2012, B_Occupational_summary_2012,
-                  E_Occupational_summary_2012, H_Occupational_summary_2012, L_Occupational_summary_2012,
-                  All_Occu_smry_2012)
+LMS_2012 = output('LMS_2012', Occu_grp_smry_2012, Top_Occu_2012, B_Occupational_summary_2012, E_Occupational_summary_2012, 
+H_Occupational_summary_2012, L_Occupational_summary_2012,All_Occu_smry_2012)
 """
 
 from openpyxl import load_workbook
